@@ -3,7 +3,7 @@
 :root {
   --color-verdePrincipal: #04fc21;
   --color-branca: white;
-  --color-texto: #8F8F8F;
+  --color-texto: #8f8f8f;
 }
 
 body {
@@ -38,7 +38,7 @@ li {
   padding: 5px;
 }
 
-.texto_container_principal{
+.texto_container_principal {
   color: var(--color-texto);
   font-weight: 300;
 }
@@ -47,8 +47,8 @@ li {
   margin-top: 70px;
 }
 
-.form-label{
-    color: var(--color-texto);
+.form-label {
+  color: var(--color-texto);
 }
 
 .custom-input {
@@ -80,4 +80,53 @@ textarea::placeholder {
   opacity: 0.9;
 }
 
+.box-materia {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+  margin-bottom: 20px;
+}
 
+.titulo-materia {
+  color: var(--color-texto);
+  font-size: 1.2rem;
+  font-weight: 300;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-toggle {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--color-texto);
+  cursor: pointer;
+}
+
+.campo-anotacao {
+  min-height: 150px;
+  resize: vertical;
+  margin-top: 15px;
+}
+
+.tabela-metas td,
+.tabela-metas th {
+  vertical-align: middle;
+}
+
+.status-concluido {
+  color: green;
+  font-weight: 500;
+}
+
+.status-pendente {
+  color: red;
+  font-weight: 500;
+}
+
+.table-container {
+  overflow-x: auto;
+}

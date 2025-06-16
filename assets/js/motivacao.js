@@ -8,6 +8,7 @@ const frases = [
   "O êxito é ir de frustração a frustração sem perder a animação.",
   "Você precisa fazer aquilo que pensa que não é capaz de fazer.",
   "Mesmo que algo pareça difícil, nunca desista antes de tentar.",
+  "No pain, no gain!",
 ];
 
 function sortearFrase() {

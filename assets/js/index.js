@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       limparFormulario();
       renderizarMetas();
+      atualiza(); // ✅ Chamada após adicionar
       $.notify("Meta adicionada com sucesso!", "success");
     });
 
@@ -146,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
           metas[index].concluido = switchInput.checked;
           localStorage.setItem("lista", JSON.stringify(metas));
           renderizarMetas(filtroBusca);
+          atualiza(); // ✅ Chamada ao marcar/desmarcar concluído
         });
 
         const btnExcluir = document.createElement("button");
@@ -157,6 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
             metas[index].lixeira = true;
             localStorage.setItem("lista", JSON.stringify(metas));
             renderizarMetas(filtroBusca);
+            atualiza(); // ✅ Chamada ao excluir
             $.notify("Meta excluída", "success");
           }
         });
@@ -180,5 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
     renderizarMetas();
   }
 });
+
+
 
 

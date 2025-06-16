@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "var(--color-pretoPrincipal)"
     );
   } else {
-    root.style.setProperty("--color-verdePrincipal", "#04fc21"); // seu verde padrão
+    root.style.setProperty("--color-verdePrincipal", "#28a745"); // seu verde padrão
   }
 
   // ✅ Aplicar tamanho da fonte salvo

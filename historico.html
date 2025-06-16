@@ -28,8 +28,7 @@
     <div class="d-flex flex-column flex-md-row min-vh-100">
 
         <!-- Menu lateral para desktop -->
-        <section class="lateral p-3 d-none d-md-flex flex-column justify-content-between"
-            style="min-width: 200px; ">
+        <section class="lateral p-3 d-none d-md-flex flex-column justify-content-between" style="min-width: 200px; ">
             <div>
                 <h2>IF META-DRAW</h2>
                 <ul class="nav flex-column">
@@ -62,7 +61,7 @@
         </section>
 
         <!-- Menu lateral mobile -->
-         <div class="offcanvas offcanvas-start lateral d-md-none" tabindex="-1" id="offcanvasMenu">
+        <div class="offcanvas offcanvas-start lateral d-md-none" tabindex="-1" id="offcanvasMenu">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title">IF META-DRAW</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
@@ -111,62 +110,47 @@
             </div>
 
             <div class="container py-5">
-                <h2 class="texto_container_principal">Histórico de Metas</h2>
+                <h2 class="texto_container_principal text-center mb-4">Histórico de Metas</h2>
 
                 <!-- Botões de troca -->
                 <div class="text-center mb-4">
-                    <button class="btn btn-opcao active" onclick="atualizarGrafico('pie', this)">🍕 Pizza</button>
-                    <button class="btn btn-opcao" onclick="atualizarGrafico('bar', this)">📊 Barras</button>
+                    <button class="btn btn-opcao active me-2" data-tipo="pie">🍕 Pizza</button>
+                    <button class="btn btn-opcao" data-tipo="bar">📊 Barras</button>
                 </div>
 
-                <!-- Gráfico -->
-                <div class="row mb-5">
-                    <div class="col-md-6 offset-md-3">
-                        <canvas id="graficoMetas"></canvas>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-10" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <!-- Resumo -->
+                        <div id="resumoMetas" class="mb-3 fw-semibold text-center text-primary"></div>
+
+                        <!-- Gráfico -->
+                        <canvas id="graficoMetas" style="max-width: 80%;"></canvas>
                     </div>
                 </div>
 
                 <!-- Tabela -->
-                <div class="table-container">
-                    <table class="table table-bordered tabela-metas">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Meta</th>
-                                <th>Status</th>
-                                <th>Prazo</th>
-                                <th>Matéria</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Estudar gráficos</td>
-                                <td class="status-concluido">Concluída</td>
-                                <td>10/06/2025</td>
-                                <td>Matemática</td>
-                            </tr>
-                            <tr>
-                                <td>Ler capítulo 3</td>
-                                <td class="status-pendente">Pendente</td>
-                                <td>15/06/2025</td>
-                                <td>História</td>
-                            </tr>
-                            <tr>
-                                <td>Trabalho de ciências</td>
-                                <td class="status-concluido">Concluída</td>
-                                <td>09/06/2025</td>
-                                <td>Ciências</td>
-                            </tr>
-                            <tr>
-                                <td>Exercícios de inglês</td>
-                                <td class="status-pendente">Pendente</td>
-                                <td>18/06/2025</td>
-                                <td>Inglês</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="row justify-content-center mt-5">
+                    <div class="col-lg-10">
+                        <div class="table-responsive">
+                            <table class="table tabela-metas table-bordered text-center align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Status</th>
+                                        <th>Prazo</th>
+                                        <th>Matéria</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+
+    </div>
+
+    </section>
     </div>
 
     <!-- Scripts Bootstrap + Gráfico -->

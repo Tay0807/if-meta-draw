@@ -9,7 +9,7 @@
         "#1a1a1a"
     );
   } else {
-    root.style.setProperty("--color-verdePrincipal", "#04fc21"); // ou seu verde padrão
+    root.style.setProperty("--color-verdePrincipal", "#28a745"); // ou seu verde padrão
   }
 
   // Fonte antes do CSS carregar

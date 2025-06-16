@@ -10,3 +10,4 @@ function toggleAnotacao(button) {
     button.textContent = "+"; // símbolo de mais
   }
 }
+

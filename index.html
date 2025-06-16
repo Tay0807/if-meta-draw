@@ -28,8 +28,7 @@
     <div class="d-flex flex-column flex-md-row min-vh-100">
 
         <!-- Lateral fixa para desktop -->
-        <section class="lateral p-3 d-none d-md-flex flex-column justify-content-between"
-            style="min-width: 200px;">
+        <section class="lateral p-3 d-none d-md-flex flex-column justify-content-between" style="min-width: 200px;">
             <div>
                 <h2>IF META-DRAW</h2>
                 <ul class="nav flex-column">
@@ -63,7 +62,7 @@
 
 
         <!-- Offcanvas para mobile -->
-         <div class="offcanvas offcanvas-start lateral d-md-none" tabindex="-1" id="offcanvasMenu">
+        <div class="offcanvas offcanvas-start lateral d-md-none" tabindex="-1" id="offcanvasMenu">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title">IF META-DRAW</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
@@ -120,23 +119,25 @@
                 <form class="espacamento">
                     <!-- Nome da meta -->
                     <div class="mb-3">
-                        <label class="form-label">Adicione o nome da meta/atividade:</label>
-                        <input type="text" class="form-control custom-input" placeholder="Ex: Estudar Matemática">
+                        <label class="form-label">Adicione o nome da meta/atividade <span style="color: red;">*</span>
+                            :</label>
+                        <input type="text" class="form-control custom-input" id="nome"
+                            placeholder="Ex: Estudar Matemática" required>
                     </div>
 
                     <!-- Linha com 3 campos -->
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label class="form-label">Matéria:</label>
-                            <input type="text" class="form-control custom-input">
+                            <input type="text" id="materia" class="form-control custom-input">
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Prazo da atividade:</label>
-                            <input type="date" class="form-control custom-input">
+                            <label class="form-label">Prazo da atividade <span style="color: red;">*</span> :</label>
+                            <input type="date" id="data" class="form-control custom-input" required>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Tipo de atividade:</label>
-                            <input type="text" class="form-control custom-input">
+                            <input type="text" id="tipo_atividade" class="form-control custom-input">
                         </div>
                     </div>
 
@@ -144,11 +145,11 @@
                     <div class="row g-3 mt-3">
                         <div class="col-md-6">
                             <label class="form-label">Anotações:</label>
-                            <textarea class="form-control custom-input textarea-container"></textarea>
+                            <textarea id="anotacoes" class="form-control custom-input textarea-container"></textarea>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Descrição da meta/atividade:</label>
-                            <textarea class="form-control custom-input textarea-container"></textarea>
+                            <textarea id="descricao" class="form-control custom-input textarea-container"></textarea>
                         </div>
                     </div>
 
@@ -159,7 +160,7 @@
                             <label class="form-check-label" for="lembreteSwitch">Adicionar lembrete</label>
                         </div>
 
-                        <button type="submit" id="bnt" class="btn-verde" disabled>Adicionar meta</button>
+                        <button id="bnt" class="btn-verde">Adicionar meta</button>
                     </div>
                 </form>
 
@@ -167,7 +168,12 @@
                 <div class="mt-5">
                     <div class="espacamento">
                         <h6 class="texto_container_principal">Suas metas</h6>
-                        <div class="border p-3 rounded bg-white" style="min-height: 200px;"></div>
+                        <div class="mb-3">
+                            <input type="text" id="busca" class="form-control"
+                                placeholder="Buscar por nome, matéria ou tipo...">
+                        </div>
+
+                        <div class="border p-3 rounded bg-white" id="suas_metas" style="min-height: 200px;"></div>
                     </div>
                 </div>
             </div>
@@ -183,6 +189,7 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="assets/js/index.js"></script>
 <script src="assets/js/script.js"></script>
 <script src="assets/js/preferencias.js"></script>
 

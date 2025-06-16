@@ -1,149 +1,184 @@
-var bnt = document.getElementById("bnt");
+document.addEventListener("DOMContentLoaded", function () {
+  const botaoAdicionar = document.getElementById("bnt");
+  const campoBusca = document.getElementById("busca");
 
-if (bnt) {
+  if (botaoAdicionar) {
+    botaoAdicionar.disabled = false;
 
-  // bnt.addEventListener('click', function(){
-  //     var nome_meta = document.getElementById('nome')
-  //     var categoria = document.getElementById('categoria')
-  //     var data = document.getElementById('data').value
-  //     var anotacoes = document.getElementById('Anotações')
-  //     var bnt = document.getElementById('bnt')
-  //     var pedidos = []
+    botaoAdicionar.addEventListener("click", function (e) {
+      e.preventDefault();
 
-  //     var info = {
-  //         "nome": nome_meta.value,
-  //         "categoria": categoria.value,
-  //         "data": data,
-  //         "anotacoes": anotacoes.value,
-  //         "concluido": false,
-  //         "lixeira":false
-  //     }
+      const nome = document.getElementById("nome").value;
+      const materia = document.getElementById("materia").value;
+      const data = document.getElementById("data").value;
+      const tipo_atividade = document.getElementById("tipo_atividade").value;
+      const anotacoes = document.getElementById("anotacoes").value;
+      const descricao = document.getElementById("descricao").value;
+      const lembrete = document.getElementById("lembreteSwitch").checked;
 
-  //     var itens = JSON.parse(localStorage.getItem("lista")) || []
+      if (!nome || !data) {
+        alert("Preencha os campos obrigatórios!");
+        return;
+      }
 
-  //     itens.push(info)
+      const novaMeta = {
+        nome,
+        materia,
+        data,
+        tipo_atividade,
+        anotacoes,
+        descricao,
+        lembrete,
+        concluido: false,
+        lixeira: false,
+      };
 
-  //     localStorage.setItem("lista", JSON.stringify(itens))
+      const metas = JSON.parse(localStorage.getItem("lista")) || [];
+      metas.push(novaMeta);
+      localStorage.setItem("lista", JSON.stringify(metas));
 
-  //     var itens_fora = JSON.parse(localStorage.getItem("nova_lista")) || []
+      if (lembrete) {
+        solicitarPermissaoNotificacao();
+      }
 
-  //     localStorage.setItem("nova_lista", JSON.stringify(itens_fora))
+      limparFormulario();
+      renderizarMetas();
+      $.notify("Meta adicionada com sucesso!", "success");
+    });
 
-  //     $.notify("Meta adicionada", "success");
+    campoBusca.addEventListener("input", () => {
+      renderizarMetas(campoBusca.value.trim().toLowerCase());
+    });
 
-  //     nome_meta.value = ''
-  //     categoria.value = ''
-  //     data.value = ''
-  //     anotacoes.value = ''
-  //     atualiza()
-  // })
+    function limparFormulario() {
+      document.getElementById("nome").value = "";
+      document.getElementById("materia").value = "";
+      document.getElementById("data").value = "";
+      document.getElementById("tipo_atividade").value = "";
+      document.getElementById("anotacoes").value = "";
+      document.getElementById("descricao").value = "";
+      document.getElementById("lembreteSwitch").checked = false;
+    }
 
-  // function atualiza() {
-  //     var itens = JSON.parse(localStorage.getItem("lista")) || []
-  //     var div = document.getElementById('conteudo')
+    function getCorTipo(tipo) {
+      const cores = {
+        estudo: "border-primary",
+        prova: "border-danger",
+        tarefa: "border-warning",
+        apresentação: "border-success",
+      };
+      const chave = tipo?.toLowerCase();
+      return cores[chave] || "border-secondary";
+    }
 
-  //     div.innerHTML = ""
-  //     var html = ""
+    function solicitarPermissaoNotificacao() {
+      if ("Notification" in window) {
+        Notification.requestPermission().then((permissao) => {
+          if (permissao === "granted") {
+            new Notification("Lembrete ativado!", {
+              body: "Sua meta foi salva com lembrete!",
+            });
+          }
+        });
+      }
+    }
 
-  //     for (var x of itens) {
-  //         html += ``;
+    function renderizarMetas(filtroBusca = "") {
+      const container = document.getElementById("suas_metas");
+      let metas = JSON.parse(localStorage.getItem("lista")) || [];
 
-  //         if("lixeira" in x && x.lixeira == true){
-  //             html += ` <div id="clientes" style="display:none;">`
-  //         }else{
-  //             html += `<div id="clientes">`
-  //         }
-  //         html +=` <details>
-  //                 <summary id="summary">`
+      container.innerHTML = "";
 
-  //                     if("concluido" in x && x.concluido == true) {
-  //                         html += `<strike>${x.nome}</strike>`
-  //                     } else {
-  //                         html += x.nome
-  //                     }
+      metas = metas
+        .filter((m) => !m.lixeira)
+        .sort((a, b) => new Date(a.data) - new Date(b.data));
 
-  //         html +=
-  //             `</summary>
-  //                 <p><span>Categoria:   </span>${x.categoria}</p>
-  //                 <p><span>Data:   </span>${x.data}</p>
-  //                 <p><span>Anotaçoes:   </span>${x.anotacoes}</p>
-  //             </details>
-  //             <div id="img">
-  //                 <img id="lixeira" onclick="removerElemento(${itens.indexOf(x)})" src="./assets/img/lixeira.png" alt=""> `;
+      if (filtroBusca) {
+        metas = metas.filter((meta) =>
+          [meta.nome, meta.materia, meta.tipo_atividade]
+            .join(" ")
+            .toLowerCase()
+            .includes(filtroBusca)
+        );
+      }
 
-  //                 if("concluido" in x && x.concluido == true) {
-  //                     html += `<img id="check" onclick="concluido(${itens.indexOf(x)})" src="./assets/img/check.png" alt="">`
-  //                 } else {
-  //                     html += `<img id="check" onclick="concluido(${itens.indexOf(x)})" src="./assets/img/checkver.png" alt="">`
-  //                 }
+      metas.forEach((meta, index) => {
+        const col = document.createElement("div");
+        col.className = "col";
 
-  //                 html += `
-  //             </div>
-  //             </div> `
-  //     }
+        const tipoCor = getCorTipo(meta.tipo_atividade);
+        const estiloConcluido = meta.concluido
+          ? "border-success border-2 bg-white"
+          : "bg-light";
 
-  //     div.innerHTML += html
-  // }
+        const card = document.createElement("div");
+        card.className = `card h-100 shadow-sm border-start ${tipoCor} border-4 ${estiloConcluido} border-1 p-3 mb-3`;
 
-  // function concluido(indice) {
-  //     var itens = JSON.parse(localStorage.getItem("lista"))
-  //     itens[indice].concluido = true
+        const cardBody = document.createElement("div");
+        cardBody.className = "card-body fw-light";
 
-  //     localStorage.setItem("lista", JSON.stringify(itens))
+        const titulo = document.createElement("h6");
+        titulo.className = "card-title fs-6";
+        titulo.innerHTML = meta.concluido ? `<s>${meta.nome}</s>` : meta.nome;
 
-  //     $.notify("Meta concluida", "success");
+        const conteudo = `
+          <p class="card-text mb-1"><strong>Matéria:</strong> ${meta.materia || "-"}</p>
+          <p class="card-text mb-1"><strong>Prazo:</strong> ${meta.data}</p>
+          <p class="card-text mb-1"><strong>Tipo:</strong> ${meta.tipo_atividade || "-"}</p>
+          <p class="card-text mb-1"><strong>Anotações:</strong> ${meta.anotacoes || "-"}</p>
+          <p class="card-text mb-2"><strong>Descrição:</strong> ${meta.descricao || "-"}</p>
+        `;
 
-  //     atualiza()
-  // }
+        const switchBox = document.createElement("div");
+        switchBox.className = "form-check form-switch d-flex align-items-center justify-content-between mb-2";
 
-  // function removerElemento(indice){
+        const switchInput = document.createElement("input");
+        switchInput.type = "checkbox";
+        switchInput.className = "form-check-input";
+        switchInput.id = `check${index}`;
+        switchInput.checked = meta.concluido;
 
-  //     var itens = JSON.parse(localStorage.getItem("lista"))
-  //     itens[indice].lixeira = true
-  //     localStorage.setItem("lista", JSON.stringify(itens))
-  //     $.notify("Meta excluida", "success");
+        const switchLabel = document.createElement("label");
+        switchLabel.className = "form-check-label ms-2";
+        switchLabel.innerText = "Concluída";
 
-  //     atualiza()
+        switchInput.addEventListener("change", () => {
+          metas[index].concluido = switchInput.checked;
+          localStorage.setItem("lista", JSON.stringify(metas));
+          renderizarMetas(filtroBusca);
+        });
 
-  //     var itens_fora = JSON.parse(localStorage.getItem("nova_lista"))
-  //     itens_fora.push(itens[indice])
-  //     localStorage.setItem("nova_lista", JSON.stringify(itens_fora))
-  //     atualiza()
+        const btnExcluir = document.createElement("button");
+        btnExcluir.className = "btn btn-outline-danger btn-sm mt-2";
+        btnExcluir.innerHTML = '<i class="bi bi-trash"></i> Excluir';
 
-  // }
+        btnExcluir.addEventListener("click", () => {
+          if (confirm("Tem certeza que deseja excluir esta meta?")) {
+            metas[index].lixeira = true;
+            localStorage.setItem("lista", JSON.stringify(metas));
+            renderizarMetas(filtroBusca);
+            $.notify("Meta excluída", "success");
+          }
+        });
 
-  // atualiza()
-} else {
+        cardBody.appendChild(titulo);
+        cardBody.innerHTML += conteudo;
+        switchBox.appendChild(switchInput);
+        switchBox.appendChild(switchLabel);
+        cardBody.appendChild(switchBox);
+        cardBody.appendChild(btnExcluir);
+        card.appendChild(cardBody);
+        col.appendChild(card);
+        container.appendChild(col);
+      });
 
-  //     function atualiza() {
-  //         var itens = JSON.parse(localStorage.getItem("nova_lista")) || []
-  //         var div = document.getElementById('lista_excluido')
-  //         var div_dois = document.getElementById('lista_concluido')
+      if (metas.length === 0) {
+        container.innerHTML = `<div class="text-center text-muted">Nenhuma meta encontrada.</div>`;
+      }
+    }
 
-  //         div.innerHTML = ""
-  //         div_dois.innerHTML = ""
-  //         var html = ""
+    renderizarMetas();
+  }
+});
 
-  //         for (var x of itens) {
 
-  //             if (x.concluido == false){
-  //                 html += `<details> <summary><span class="span">Meta:</span>${x.nome} </summary> <p id="p_hist"><span class="span">Categoria:</span>${x.categoria} <span class="span">Data:</span> ${x.data}<span class="span"> Anotaçoes:</span> ${x.anotacoes}</p></details>`
-  //             }else{
-  //                 div_dois.innerHTML += `<details> <summary><span class="span">Meta:</span>${x.nome} </summary> <p id="p_hist"><span class="span">Categoria:</span>${x.categoria} <span class="span">Data:</span> ${x.data}<span class="span"> Anotaçoes:</span> ${x.anotacoes}</p></details>`
-  //             }
-  //         }
-
-  //         div.innerHTML += html
-  // }
-
-  //     var bnt_historico = document.getElementById('bnt_historico')
-
-  //     bnt_historico.addEventListener('click', function(){
-  //         localStorage.removeItem("nova_lista")
-  //         localStorage.removeItem("metas")
-  //         $.notify("Histórico excluido com sucesso", "success");
-  //         atualiza()
-  //     })
-
-  //     atualiza()
-}

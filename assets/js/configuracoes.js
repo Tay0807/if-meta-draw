@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const temaSwitch = document.getElementById("temaSwitch");
+  const temaSwitchPrincipal = document.getElementById("temaSwitchEscuro");
   const tamanhoFonte = document.getElementById("tamanhoFonte");
   const root = document.documentElement;
 
@@ -10,6 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
       "--color-verdePrincipal",
       "var(--color-pretoPrincipal)"
     );
+  }
+
+  // Carrega valores salvos
+  if (localStorage.getItem("temaPrincipal") === "escuro") {
+    temaSwitchPrincipal.checked = true;
+    root.style.setProperty("--color-bg-principal", "var(--color-bg-cinza)");
+    root.style.setProperty("--color-texto", "white");
   }
 
   if (localStorage.getItem("fonte")) {
@@ -27,7 +35,22 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     } else {
       localStorage.setItem("tema", "claro");
-      root.style.setProperty("--color-verdePrincipal", "#04fc21"); // verde padrão
+      root.style.setProperty("--color-verdePrincipal", "#28a745"); // verde padrão
+      root.style.setProperty("--color-bg-principal", "white");
+      root.style.setProperty("--color-texto-principal", "#1a1a1a");
+    }
+  });
+
+  // Alterar tema e salvar
+  temaSwitchPrincipal.addEventListener("change", () => {
+    if (temaSwitchPrincipal.checked) {
+      localStorage.setItem("temaPrincipal", "escuro");
+      root.style.setProperty("--color-bg-principal", "var(--color-bg-cinza)");
+      root.style.setProperty("--color-texto", "white");
+    } else {
+      localStorage.setItem("temaPrincipal", "claro");
+      root.style.setProperty("--color-bg-principal", "white");
+      root.style.setProperty("--color-texto", "#8f8f8f");
     }
   });
 

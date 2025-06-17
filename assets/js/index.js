@@ -161,6 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
             renderizarMetas(filtroBusca);
             atualiza(); // ✅ Chamada ao excluir
             $.notify("Meta excluída", "success");
+            
           }
         });
 

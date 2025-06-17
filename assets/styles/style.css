@@ -5,12 +5,22 @@
   --color-pretoPrincipal: #1a1a1a;
   --color-branca: white;
   --color-texto: #8f8f8f;
+
+  --color-bg-principal: white;
+  --color-texto-principal: #1a1a1a;
+
+  --color-bg-cinza: #4b4b4b;
 }
+
 
 body {
   font-family: "Poppins", sans-serif;
 }
 
+.background_principal{
+  background-color: var(--color-bg-principal);
+  color: var(--color-texto);
+}
 
 .lateral {
   background-color: var(--color-verdePrincipal);
@@ -132,3 +142,5 @@ textarea::placeholder {
 .table-container {
   overflow-x: auto;
 }
+
+

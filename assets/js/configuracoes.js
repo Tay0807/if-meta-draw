@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "--color-verdePrincipal",
       "var(--color-pretoPrincipal)"
     );
+    root.style.setProperty("--color-texto-principal", "#8f8f8f");
+    root.style.setProperty("--color-texto", "#8f8f8f");
   }
 
   // Carrega valores salvos
@@ -33,10 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
         "--color-verdePrincipal",
         "var(--color-pretoPrincipal)"
       );
+      root.style.setProperty("--color-texto-principal", "#8f8f8f");
+      root.style.setProperty("--color-texto", "#8f8f8f");
     } else {
       localStorage.setItem("tema", "claro");
       root.style.setProperty("--color-verdePrincipal", "#28a745"); // verde padrão
-      root.style.setProperty("--color-bg-principal", "white");
+      // root.style.setProperty("--color-bg-principal", "white");
       root.style.setProperty("--color-texto-principal", "#1a1a1a");
     }
   });
